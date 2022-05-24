@@ -1,0 +1,198 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Allows you to insert figures
+\usepackage{amsmath} % Allows you to do equations
+\usepackage{fancyhdr} % Formats the header
+\usepackage{geometry} % Formats the paper size, orientation, and margins
+\linespread{1.25} % about 1.5 spacing in Word
+\setlength{\parindent}{0pt} % no paragraph indents
+\setlength{\parskip}{1em} % paragraphs separated by one line
+\usepackage[style=authoryear-ibid,backend=biber,maxbibnames=99,maxcitenames=2,uniquelist=false,isbn=false,url=true,eprint=false,doi=true,giveninits=true,uniquename=init]{biblatex} % Allows you to do citations - does Harvard style and compatible with Zotero
+\urlstyle{same} % makes a nicer URL and DOI font 
+\AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+} % removes access date
+\AtEveryBibitem{\clearfield{month}} % removes months in bibliography
+\AtEveryCitekey{\clearfield{month}} % removes months in citations
+\renewbibmacro{in:}{} % Removes the "In" before journal names
+
+\renewbibmacro*{editorstrg}{%from biblatex.def
+  \printtext[editortype]{%
+    \iffieldundef{editortype}
+      {\ifboolexpr{
+         test {\ifnumgreater{\value{editor}}{1}}
+         or
+         test {\ifandothers{editor}}
+       }
+         {\bibcpstring{editors}}
+         {\bibcpstring{editor}}}
+      {\ifbibxstring{\thefield{editortype}}
+         {\ifboolexpr{
+            test {\ifnumgreater{\value{editor}}{1}}
+            or
+            test {\ifandothers{editor}}
+          }
+            {\bibcpstring{\thefield{editortype}s}}%changed
+            {\bibcpstring{\thefield{editortype}}}}%changed
+         {\thefield{editortype}}}}}
+
+\renewbibmacro*{byeditor+others}{%from biblatex.def
+  \ifnameundef{editor}
+    {}
+    {\printnames[byeditor]{editor}%
+     \addspace%added
+     \mkbibparens{\usebibmacro{editorstrg}}%added
+     \clearname{editor}%
+     \newunit}%
+  \usebibmacro{byeditorx}%
+  \usebibmacro{bytranslator+others}}
+  % The commands above from lines 20-49 change the way editors are displayed in books
+\AtEveryBibitem{%
+  \clearlist{language}%
+} % removes language from bibliography
+\citetrackerfalse 
+% Removes ibids (ibidems)
+\DeclareNameAlias{sortname}{family-given} % Ensures the names of the authors after the first author are in the correct order in the bibliography
+\renewcommand*{\revsdnamepunct}{} % Corrects punctuation for authors with just a first initial
+\addbibresource{Example.bib} % Tells LaTeX where the citations are coming from. This is imported from Zotero
+\usepackage[format=plain,
+            font=it]{caption} % Italicizes figure captions
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\renewcommand*{\nameyeardelim}{\addcomma\space} % Adds comma in in-text citations
+\renewcommand{\headrulewidth}{0pt}
+\geometry{letterpaper, portrait, margin=1in}
+\setlength{\headheight}{14.49998pt}
+
+\newcommand\titleofdoc{Guideline for Improving Traceability of Research Products} %%%%% Put your document title in this argument
+\newcommand\GroupName{Cornell Urban Environmental Fluid Mechanics Lab} %%%%% Put your group name here. If you are the only member of the group, just put your name
+
+\begin{document}
+\begin{titlepage}
+   \begin{center}
+        \vspace*{4cm} % Adjust spacings to ensure the title page is generally filled with text
+
+        \Huge{\titleofdoc} 
+
+        \vspace{0.5cm}
+        \LARGE{optional subtitle below}
+            
+        \vspace{3 cm}
+        \Large{\GroupName}
+       
+        \vspace{0.25cm}
+        \large{}
+       
+        \vspace{3 cm}
+        \Large{April 2022}
+        
+        \vspace{0.25 cm}
+        \Large{Version 0}
+       
+
+       \vfill
+    \end{center}
+\end{titlepage}
+
+\setcounter{page}{2}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{\GroupName; \titleofdoc}
+
+\section{Motivation} % If you want numbered sections, remove the star after \section
+
+`Traceability is the procedure of tracking (and documenting) all your raw materials, parts, and finished goods throughout your manufacturing process.'
+
+The motivation is to provide some guidelines and suggest a common protocol that lab members adopt in daily research practice, such that the following three objectives can be achieved: 1) mistakes are more easily tracked, 2) standards are more easily applied across projects, and 3) dealing with multiple rounds of reviews becomes more efficient.
+
+In addition, beyond the aforementioned practical points, keeping your research products traceable is a basic requirement for \textbf{open research}.
+
+Two things to keep in mind for the guidelines and protocol:
+
+\begin{enumerate}
+    \item The backbone of a traceable research practice as outlined in this document needs to be naturally integrated into your research activities.
+    \item The implementation details of the protocol are by no means static: they are meant to be adapted to best aid the above-mentioned three objectives. The high-level goal is to make the whole research trackable and reproducible to yourself, your supervisor(s), collaborators, and future readers.
+\end{enumerate}
+
+\section{Protocol for research activities}
+Since the productivity of research activities is measured by journal publications, we take a reverse order to outline the essential steps in ensuring traceability.
+\subsection{Figures in a manuscript}
+The two key questions addressed here:
+
+\begin{enumerate}
+    \item What is a figure of publishable quality?
+    \item What are the necessary auxiliary information of a figure to ensure that it is reproducible?
+\end{enumerate}
+
+\subsubsection{Figure of publishable quality}
+
+\begin{enumerate}
+    \item \textbf{Axes labels:} Correct texts, symbols, units must be present for axes labels and/or colorbar, plot title. Legends are appropriately indicated. Font size: 10-12. Consistent font is needed throughout the manuscript. 
+    \item \textbf{Figure format:} Figures with no rendering needs to be 600 dpi, preferably vector format (.eps, .pdf). Figures with rendering 300 dpi (if size is too large) of (.pdf, .tiff) format. 
+    \item \textbf{Figure size:} Raw figure size needs to be appropriate for an A4-sized page (8-1/4 $\times$ 11-3/4 in). This means that with approximately 1 inch margins from both sides, the figure width should be smaller than 6-1/2 in. \textbf{Please learn the proper way of exporting figures with the required dpi, size and format in the context of your programming language.} 
+\end{enumerate}
+
+\textbf{\LARGE{Note:}}
+
+\begin{enumerate}
+    \item \Large{If your manuscript draft does not meet the above-mentioned requirements, I will not read your manuscript.}
+    \item In your weekly meeting and/or group meeting, a similar standard applies to figures shown on your powerpoint slides, especially regarding Axes labels. 
+    
+\end{enumerate}
+
+\subsubsection{Necessary auxiliary information of a figure}
+A figure needs to accompanied by auxiliary information to ensure that it can be reproduced during and after the duration of your project. There are multiple ways to ensure this and you should develop an approach that works for you. For example, I use an excel sheet (e.g. record.xsl) to record the 1) directory/ies and file names of data; 2) directory/ies and file names of the scripts used for plotting; 3) directory and file name of the figures, for figures in any version of the manuscript. A new sheet is added to record.xsl to record any changes made to produce the figures for manuscript revisions. I will use record.xsl in the following points, but you may choose the most sensible way for you to record the necessary auxiliary information, such as using Markdown in GitHub, a simple text file, and even handwritten notes (it needs to be digitized eventually, of course). 
+
+\begin{enumerate}
+    
+    \item \textbf{Directory of data} If figures are generated based on post-processed or raw data, indicate the directory of your data and the file names of your data in record.xsl. If data is later backed up on a permanent storage volume, remember to update record.xsl. A separate backup log is a good idea to keep. This will be discussed more in \Sec. \ref{sec:data}.
+    \item \textbf{Directory of script} Indicate directory of your scripts and the name of the script (or line numbers/sections, if multiple figures are generated from one script). Version controls are important. This will be discussed more in Sec.\ref{sec:script}.
+    \item \textbf{Directory of figure} Clearly itemize each figure in a given version of your manuscript. For each figure, the file names and the directory of that figure needs to be clearly indicated.
+    \item \textbf{Any other supplementary information} There are times when figures generated are not included in the manuscript, such as figures for replying reviewers and figures for sensitivity analysis/sanity check/etc., the above three points (directories of figure, data and script) should be all checked.
+    
+\end{enumerate}
+
+\subsection{Scripts for post-processing}\label{sec:script}
+The two aspects addressed here are:
+\begin{enumerate}
+    \item Readability of scripts
+    \item Version control of scripts
+\end{enumerate}
+
+\subsubsection{Readability of scripts}
+Good practice of coding applies for writing scripts to analyze data. Commenting your code, such that you can go back to it in at least two or three months for paper revision is essential. 
+\subsubsection{Version control of scripts}
+Some efforts in version control are worth investing time. I strongly suggest you to use GitHub for all your scripts to produce figures for your manuscripts. \large{\textbf{No matter what version control practice you adopt, you must have a final GitHub repo after your paper is submitted, where all your scripts and auxiliary information (e.g., record. xsl) are uploaded for future reference.}}
+
+\subsection{Theoretical derivation}
+If your research involves significant amounts of derivations, especially involving a lot of symbolic maths, I suggest you to learn to use Mathematica. Wolfram Engine, which is free, paired with VS Code's extension will give you a Mathematica-like notebook environment. 
+
+If your derivation can be mostly derived by hand, you need to have a hand-written version (paper or electronic) and then type-set all your derivations using \LaTeX. Learning to use Overleaf to document any of your derivations and thoughts is useful for eventually writing your manuscript and thesis.
+
+\large{\textbf{Note: I will not read a manuscript prepared in Word if it involves more than just governing equations.}}
+
+\subsection{Data}\label{sec:data}
+
+\subsubsection{Data generation}
+If data are generated from your numerical experiments, you will need to have necessary auxiliary information of data (it can be a separate file or within the record.xsl), which records the following (if relevant):
+\begin{enumerate}
+    \item \textbf{Data file names and information:} Contents of the data (e.g., experimental run number); key variables and their information (variable physical meanings, dimensions and spatial-temporal resolutions).
+    \item \textbf{Code used to generate the data:} For each data file, indicate the version of the code and directory of the code. 
+    \item \textbf{Code used to post-process the raw data:} Very often the raw data need to be post-processed before scripts can be run for plotting figure. Therefore, any post-processing code's file names and directory needs to be indicated in record.xsl. 
+    \item \textbf{Other files related to performing numerical experiments:} This includes submission scripts in the server and any other relevant batch scripts. 
+    
+\end{enumerate}
+
+\subsubsection{Data backup}
+No matter how data are obtained, data need to be backed up in a permanent volume after the project. It can either be a hard drive or the local server of our lab in BioHPC. Please learn to use Globus (https://www.globus.org/) file transfer for data backup. 
+
+In the duration of the ongoing projects, backing up essential files is also a good practice. e.g. For LES runs, backing up the fields for restarting purpose is recommended. A `data backup log' needs to be kept, which should contain information about what, when and where the data have been backed up.
+
+\large\textbf{A data backup log needs to be kept and be included as part of the final GitHub repo.}
+
+\pagebreak
+
+\printbibliography % If something looks strange in the bibliography, more often than not, you can modify the parameter in the .bib to fix the problem
+\end{document}
